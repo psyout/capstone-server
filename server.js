@@ -207,7 +207,7 @@ app.get('/api/restaurants', (req, res) => {
   // gastropubs endpoint
   app.get('/api/lounges', (req, res) => {
     const term = 'lounges';
-    const location = 'Kitsilano, Vancouver';
+    const location = 'Downtown, Vancouver';
   
     axios.get(endpoint, {
       headers: {
