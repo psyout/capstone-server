@@ -14,8 +14,7 @@ const endpoint = 'https://api.yelp.com/v3/businesses/search';
 // restaurant endpoint
 app.get('/api/restaurants', (req, res) => {
   const term = 'restaurants';
-  const location = 'Downtown, Vancouver';
-  const exclude = 'TQj4HSCmm5GnriKMiSpqpQ';
+  const location = 'Kitsilano, Vancouver';
 
   axios.get(endpoint, {
     headers: {
