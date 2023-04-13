@@ -40,7 +40,8 @@ const getBusinesses = (req, res, term, location) => {
   })
   .then(response => res.json(response.data))
   .catch(error => {
-    console.log(error);
+    console.log(error.response.data);
+    // console.log(error);
     res.status(500).json({ error: 'Internal server error' });
   });
 };
@@ -95,7 +96,7 @@ app.get('/api/bars', (req, res) => {
 
 app.get('/api/pubs', (req, res) => {
   const term = 'pubs';
-  const location = 'Downtown, Vancouver';
+  const location = 'Kitsilano, Vancouver';
   getBusinesses(req, res, term, location);
 });
 
