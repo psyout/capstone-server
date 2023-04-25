@@ -1,31 +1,16 @@
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
+require('dotenv').config();
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 
-const PORT = 3006;
+const PORT = 3002;
 const apiKey = 'ucBgT9rq_KvWTOoSvuc2gzD6OYRe7mFcaqUrxtKw-aga2ww56MNZrSbeXC4n1cnjf6iGWfQIUiX8XnVBSV3a5GIJGyYnJ_eyidasl9UXQukv0n429MIA-Chf5AMrZHYx';
 const endpoint = 'https://api.yelp.com/v3/businesses/search';
-
-
-
-// const endpoints = [
-//   { term: 'seafood', location: 'Kitsilano, Vancouver' },
-//   { term: 'restaurants', location: 'Kitsilano, Vancouver' },
-//   { term: 'bars', location: 'Kitsilano, Vancouver' },
-//   // add more endpoints here
-// ];
-
-// const requests = endpoints.map((endpoint) => {
-//   return axios.get(apiUrl, {
-//     headers: { Authorization: `Bearer ${apiKey}` },
-//     params: endpoint,
-//   });
-// });
 
 
 const getBusinesses = (req, res, term, location) => {
@@ -148,6 +133,11 @@ app.get('/api/spanish', (req, res) => {
   getBusinesses(req, res, term, location);
 });
 
-app.listen(PORT, () => {
+// app.listen(PORT, () => {
+//   console.log(`Server listening on port ${PORT}`);
+// });
+
+//Express server
+app.listen(process.env.PORT || 3002, () => {
   console.log(`Server listening on port ${PORT}`);
 });
