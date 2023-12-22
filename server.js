@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const PORT = 3002;
+const PORT = 3008;
 const apiKey = 'ucBgT9rq_KvWTOoSvuc2gzD6OYRe7mFcaqUrxtKw-aga2ww56MNZrSbeXC4n1cnjf6iGWfQIUiX8XnVBSV3a5GIJGyYnJ_eyidasl9UXQukv0n429MIA-Chf5AMrZHYx';
 const endpoint = 'https://api.yelp.com/v3/businesses/search';
 
@@ -79,6 +79,12 @@ app.get('/api/bars', (req, res) => {
   getBusinesses(req, res, term, location);
 });
 
+app.get('/api/bars', (req, res) => {
+  const term = 'bars';
+  const location = 'Kitsilano, Vancouver';
+  getBusinesses(req, res, term, location);
+});
+
 app.get('/api/pubs', (req, res) => {
   const term = 'pubs';
   const location = 'Kitsilano, Vancouver';
@@ -111,7 +117,7 @@ app.get('/api/cideries', (req, res) => {
 
 app.get('/api/karaoke', (req, res) => {
   const term = 'karaoke';
-  const location = 'Downtown, Vancouver';
+  const location = 'Kitsilano, Vancouver';
   getBusinesses(req, res, term, location);
 });
 
@@ -138,6 +144,6 @@ app.get('/api/spanish', (req, res) => {
 // });
 
 //Express server
-app.listen(process.env.PORT || 3002, () => {
+app.listen(process.env.PORT || 3008, () => {
   console.log(`Server listening on port ${PORT}`);
 });
