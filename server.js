@@ -59,7 +59,7 @@ for (const term in routes) {
 	});
 }
 
-// Express server
-app.listen(PORT, () => {
+//Express server
+app.listen(process.env.PORT || 3008, () => {
 	console.log(`Server listening on port ${PORT}`);
 });
