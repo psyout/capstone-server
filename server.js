@@ -12,138 +12,54 @@ const PORT = 3008;
 const apiKey = 'ucBgT9rq_KvWTOoSvuc2gzD6OYRe7mFcaqUrxtKw-aga2ww56MNZrSbeXC4n1cnjf6iGWfQIUiX8XnVBSV3a5GIJGyYnJ_eyidasl9UXQukv0n429MIA-Chf5AMrZHYx';
 const endpoint = 'https://api.yelp.com/v3/businesses/search';
 
-
-const getBusinesses = (req, res, term, location) => {
-  axios.get(endpoint, {
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-    },
-    params: {
-      term,
-      location,
-    },
-  })
-  .then(response => res.json(response.data))
-  .catch(error => {
-    console.log(error.response.data);
-    // console.log(error);
-    res.status(500).json({ error: 'Internal server error' });
-  });
+// Route mappings for terms and locations
+const routes = {
+	restaurants: 'Kitsilano, Vancouver',
+	seafood: 'Kitsilano, Vancouver',
+	'breakfast-brunch': 'Downtown, Vancouver',
+	burgers: 'Kitsilano Vancouver',
+	persian: 'Kitsilano, Vancouver',
+	mexican: 'Kitsilano, Vancouver',
+	canadian: 'Kitsilano, Vancouver',
+	bars: 'Downtown, Vancouver',
+	pubs: 'Kitsilano, Vancouver',
+	australian: 'Downtown, Vancouver',
+	'dive-bars': 'Downtown, Vancouver',
+	delis: 'Downtown, Vancouver',
+	cideries: 'Downtown, Vancouver',
+	karaoke: 'Kitsilano, Vancouver',
+	lounges: 'Downtown, Vancouver',
+	gastropubs: 'Downtown, Vancouver',
+	spanish: 'Downtown, Vancouver',
 };
 
-app.get('/api/restaurants', (req, res) => {
-  const term = 'restaurants';
-  const location = 'Kitsilano, Vancouver';
-  getBusinesses(req, res, term, location);
-});
+// Route handler function
+const getBusinesses = (req, res, term, location) => {
+	axios
+		.get(endpoint, {
+			headers: {
+				Authorization: `Bearer ${apiKey}`,
+			},
+			params: {
+				term,
+				location,
+			},
+		})
+		.then((response) => res.json(response.data))
+		.catch((error) => {
+			console.log(error.response.data);
+			res.status(500).json({ error: 'Internal server error' });
+		});
+};
 
-app.get('/api/seafood', (req, res) => {
-  const term = 'seafood';
-  const location = 'Kitsilano, Vancouver';
-  getBusinesses(req, res, term, location);
-});
+// Dynamically create routes
+for (const term in routes) {
+	app.get(`/api/${term}`, (req, res) => {
+		getBusinesses(req, res, term, routes[term]);
+	});
+}
 
-app.get('/api/breakfast-brunch', (req, res) => {
-  const term = 'breakfast-brunch';
-  const location = 'Downtown, Vancouver';
-  getBusinesses(req, res, term, location);
-});
-
-app.get('/api/burgers', (req, res) => {
-  const term = 'burgers';
-  const location = 'Kitsilano Vancouver';
-  getBusinesses(req, res, term, location);
-});
-
-app.get('/api/persian', (req, res) => {
-  const term = 'persian';
-  const location = 'Kitsilano, Vancouver';
-  getBusinesses(req, res, term, location);
-});
-
-app.get('/api/mexican', (req, res) => {
-  const term = 'mexican';
-  const location = 'Kitsilano, Vancouver';
-  getBusinesses(req, res, term, location);
-});
-
-app.get('/api/canadian', (req, res) => {
-  const term = 'canadian';
-  const location = 'Kitsilano, Vancouver';
-  getBusinesses(req, res, term, location);
-});
-
-app.get('/api/bars', (req, res) => {
-  const term = 'bars';
-  const location = 'Downtown, Vancouver';
-  getBusinesses(req, res, term, location);
-});
-
-app.get('/api/bars', (req, res) => {
-  const term = 'bars';
-  const location = 'Kitsilano, Vancouver';
-  getBusinesses(req, res, term, location);
-});
-
-app.get('/api/pubs', (req, res) => {
-  const term = 'pubs';
-  const location = 'Kitsilano, Vancouver';
-  getBusinesses(req, res, term, location);
-});
-
-app.get('/api/australian', (req, res) => {
-  const term = 'australian';
-  const location = 'Downtown, Vancouver';
-  getBusinesses(req, res, term, location);
-});
-
-app.get('/api/dive-bars', (req, res) => {
-  const term = 'dive-bars';
-  const location = 'Downtown, Vancouver';
-  getBusinesses(req, res, term, location);
-});
-
-app.get('/api/delis', (req, res) => {
-  const term = 'delis';
-  const location = 'Downtown, Vancouver';
-  getBusinesses(req, res, term, location);
-});
-
-app.get('/api/cideries', (req, res) => {
-  const term = 'cideries';
-  const location = 'Downtown, Vancouver';
-  getBusinesses(req, res, term, location);
-});
-
-app.get('/api/karaoke', (req, res) => {
-  const term = 'karaoke';
-  const location = 'Kitsilano, Vancouver';
-  getBusinesses(req, res, term, location);
-});
-
-app.get('/api/lounges', (req, res) => {
-  const term = 'lounges';
-  const location = 'Downtown, Vancouver';
-  getBusinesses(req, res, term, location);
-});
-
-app.get('/api/gastropubs', (req, res) => {
-  const term = 'gastropubs';
-  const location = 'Downtown, Vancouver';
-  getBusinesses(req, res, term, location);
-});
-
-app.get('/api/spanish', (req, res) => {
-  const term = 'spanish';
-  const location = 'Downtown, Vancouver';
-  getBusinesses(req, res, term, location);
-});
-
-// app.listen(PORT, () => {
-//   console.log(`Server listening on port ${PORT}`);
-// });
-
-//Express server
-app.listen(process.env.PORT || 3008, () => {
-  console.log(`Server listening on port ${PORT}`);
+// Express server
+app.listen(PORT, () => {
+	console.log(`Server listening on port ${PORT}`);
 });
