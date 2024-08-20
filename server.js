@@ -15,6 +15,7 @@ const endpoint = 'https://api.yelp.com/v3/businesses/search';
 // Route mappings for terms and locations
 const routes = {
 	restaurants: 'Kitsilano, Vancouver',
+	bar: 'Kitsilano, Vancouver',
 	seafood: 'Kitsilano, Vancouver',
 	'breakfast-brunch': 'Downtown, Vancouver',
 	burgers: 'Kitsilano Vancouver',
