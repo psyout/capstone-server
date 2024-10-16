@@ -1,6 +1,5 @@
 const express = require('express');
 const axios = require('axios');
-const rateLimit = require('axios-rate-limit');
 const cors = require('cors');
 require('dotenv').config();
 
@@ -12,13 +11,13 @@ app.use(cors());
 const PORT = 3008;
 const apiKey = 'ucBgT9rq_KvWTOoSvuc2gzD6OYRe7mFcaqUrxtKw-aga2ww56MNZrSbeXC4n1cnjf6iGWfQIUiX8XnVBSV3a5GIJGyYnJ_eyidasl9UXQukv0n429MIA-Chf5AMrZHYx';
 const searchEndpoint = 'https://api.yelp.com/v3/businesses/search';
-const reviewsEndpoint = 'https://api.yelp.com/v3/businesses';
+const reviewsEndpoint = 'https://api.yelp.com/v3/businesses'; // Endpoint for reviews
 
 // Route mappings for terms and locations
 const routes = {
 	restaurants: 'Kitsilano, Vancouver',
 	seafood: 'Kitsilano, Vancouver',
-	burgers: 'Kitsilano, Vancouver',
+	burgers: 'Kitsilano Vancouver',
 	breakfast: 'Kitsilano, Vancouver',
 	persian: 'Kitsilano, Vancouver',
 	mexican: 'Kitsilano, Vancouver',
@@ -26,7 +25,7 @@ const routes = {
 	bars: 'Kitsilano, Vancouver',
 	pubs: 'Kitsilano, Vancouver',
 	australian: 'Downtown, Vancouver',
-	'sushi-bars': 'Kitsilano, Vancouver',
+	'sushi-bars': 'Downtown, Vancouver',
 	delis: 'Downtown, Vancouver',
 	cideries: 'Downtown, Vancouver',
 	karaoke: 'Kitsilano, Vancouver',
@@ -35,16 +34,10 @@ const routes = {
 	spanish: 'Downtown, Vancouver',
 };
 
-// Configure axios with rate limiting
-const http = rateLimit(axios.create(), {
-	maxRequests: 2, // Limit to 2 requests per second
-	perMilliseconds: 1000, // Time period in milliseconds (1 second)
-});
-
 // Function to fetch reviews for a business using its business ID
 const getReviews = async (businessId) => {
 	try {
-		const response = await http.get(`${reviewsEndpoint}/${businessId}/reviews`, {
+		const response = await axios.get(`${reviewsEndpoint}/${businessId}/reviews`, {
 			headers: {
 				Authorization: `Bearer ${apiKey}`,
 			},
@@ -84,7 +77,7 @@ const getBusinesses = async (req, res, term, location) => {
 
 		res.json(businessesWithReviews);
 	} catch (error) {
-		console.log(error.response?.data || error.message);
+		console.log(error.response.data);
 		res.status(500).json({ error: 'Internal server error' });
 	}
 };
