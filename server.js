@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(cors());
 
 const PORT = 3008;
-const apiKey = 'ucBgT9rq_KvWTOoSvuc2gzD6OYRe7mFcaqUrxtKw-aga2ww56MNZrSbeXC4n1cnjf6iGWfQIUiX8XnVBSV3a5GIJGyYnJ_eyidasl9UXQukv0n429MIA-Chf5AMrZHYx';
+const apiKey = '1c7YnEbFHpnn5lg0ohx8VbuFYzkzTuHoO4aii5bmj2fxnLNuuuYsmt3OHJALwapag_nEPMMpKZiaXUopB2-AbM9oXr8mFhR9lGsMfNAF5FAmLdtQ5g0L-Nx7i9UPZ3Yx';
 const searchEndpoint = 'https://api.yelp.com/v3/businesses/search';
 const reviewsEndpoint = 'https://api.yelp.com/v3/businesses'; // Endpoint for reviews
 
